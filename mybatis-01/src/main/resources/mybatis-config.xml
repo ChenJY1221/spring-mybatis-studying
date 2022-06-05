@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    
+    <properties resource="db.properties" />
+
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.chen.pojo"/>
+    </typeAliases>
+
+    <!--    用于指定使用哪个环境     default: 用于指定使用的环境id  -->
+    <environments default="development">
+        <!--     用于配置开发环境     id: 环境的唯一识别码    -->
+        <environment id="development">
+
+            <!--      事务管理器  type: 用于设置mybatis采用什么方式管理事务      JDBC表示采用和JDBC一样的事务管理方式    -->
+            <transactionManager type="JDBC">
+            </transactionManager>
+            <!--      数据源/连接池, 用于配置连接池和数据库连接的参数     type: 用于设置mybatis是否采用连接池技术      POOLED表示MyBatis采用连接池技术     -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+<!--        <package name="com.chen.mapper"/>-->
+        <mapper class="com.chen.mapper.TeacherMapper"/>
+        <mapper class="com.chen.mapper.StudentMapper"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.fzu.studentSys.mapper.StudentMapper">
+
+    <select id="findStudentByNameOrMajor" resultType="student">
+        select *
+        from dm_student
+        <choose>
+            <when test="sname != null">
+                <where>
+                    name = #{sname};
+                </where>
+            </when>
+            <when test="smajor != null">
+                <where>
+                    major = #{smajor};
+                </where>
+            </when>
+            <otherwise>
+               <where>
+                   sno is not null;
+               </where>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insertStudent">
+        insert into dm_student (id, name, major, sno)
+        values (#{id},#{name},#{major},#{sno});
+    </insert>
+
+    <select id="findIdLessThanFive" resultType="student">
+        select *
+        from dm_student
+        where id &lt; 5;
+    </select>
+</mapper>
